@@ -1,8 +1,6 @@
 from pathlib import Path
-
 from django.conf import settings
 from PIL import Image
-
 
 def resize_image(image_django, new_width=800, optimize=True, quality=60):
     image_path = Path(settings.MEDIA_ROOT / image_django.name).resolve()
@@ -15,6 +13,7 @@ def resize_image(image_django, new_width=800, optimize=True, quality=60):
 
     new_height = round(new_width * original_height / original_width)
 
+    # Uso correto para Pillow 11.1.0
     new_image = image_pillow.resize((new_width, new_height), Image.Resampling.LANCZOS)
 
     new_image.save(
